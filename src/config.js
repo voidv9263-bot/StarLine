@@ -45,16 +45,16 @@ module.exports = {
 	embedEconomyColor: "#00FF00",
 
 	// EMOJIS //
-	automodEmoji: "<:auto:1235660206856474704>",
-	modEmojiHard: "<a:mod:1235642403986083840>",
-	modEmojiLight: "<a:wompus:1235671799241510973>",
-	pepeCoffeeEmoji: "<:pepe:1238878395303989309>",
+	automodEmoji: "<:auto:1517611921136943284>",
+	modEmojiHard: "<a:mod:1517611227105464492>",
+	modEmojiLight: "<a:wompus:1517611413693272075>",
+	pepeCoffeeEmoji: "<:pepe:1517611546849706116>",
 	arrowEmoji: "⤵",
 	errorEmoji: "❌",
 	auditLogEmoji: "📋",
-	verifyEmoji: "<a:ver:1244732033339494450>",
-	countSuccessEmoji: "<a:tick:1235674049032486945>",
-	confettiEmoji: "<a:confetti:1289370096959225857>",
+	verifyEmoji: "<a:ver:1517611609281794129>",
+	countSuccessEmoji: "<a:tick:1517611666437570585>",
+	confettiEmoji: "<a:confetti:1517611743910694912>",
 
 	// MUSIC EMOJIS //
 	musicEmojiPlay: "▶️",
