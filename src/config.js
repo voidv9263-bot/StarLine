@@ -3,7 +3,7 @@ module.exports = {
 	botVersion: "BETA-v1.7.0",
 
 	// BOT INFO //
-	prefix: "t?", // Default prefix
+	prefix: "s?", // Default prefix
 	status: "dnd",
 	eventListeners: 20,
 	botName: "StarLine",
