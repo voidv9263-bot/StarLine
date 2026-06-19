@@ -6,15 +6,15 @@ module.exports = {
 	prefix: "t?", // Default prefix
 	status: "dnd",
 	eventListeners: 20,
-	botName: "testify",
-	dev: "Kkermit",
-	devBy: "| Developed by kkermit",
-	developers: "526853643962679323",
+	botName: "StarLine",
+	dev: "pikebentley",
+	devBy: "| Developed by pikebentley",
+	developers: "961048718612774922",
 	noPerms: `You **do not** have the required permissions to use this command!`,
 	ownerOnlyCommand: `This command is **only** available for the owner of the bot!`,
 	filterMessage: "Your message includes profanity which is **not** allowed!",
-	botInvite: "https://discord.com/oauth2/authorize?client_id=1211784897627168778&permissions=8&scope=bot%20applications.commands",
-	botServerInvite: "https://discord.gg/xcMVwAVjSD",
+	botInvite: "https://discord.com/oauth2/authorize?client_id=1515507427246608424&permissions=8&integration_type=0&scope=bot",
+	botServerInvite: "https://discord.gg/Gv2zmPteJ7",
 
 	noPerms: (missingPerms) => {
 		const formattedPerms = missingPerms
@@ -65,11 +65,11 @@ module.exports = {
 	musicEmojiError: "❌",
 
 	// CHANNEL IDS //
-	botLeaveChannel: "1139731092329480332", // Logging channel for bot leaving servers
-	botJoinChannel: "1240480049681928203", // Logging channel for bot joining servers
-	commandErrorChannel: "1240912641719930970", // Logging channel for command errors
-	evalLogsChannel: "1273733451677306880", // Logging channel for eval command
-	dmLoggingChannel: "1362140847210233917", // Logging channel for DMs (when users direct message the bot)
+	botLeaveChannel: "1517561416712716288", // Logging channel for bot leaving servers
+	botJoinChannel: "1517561416712716288", // Logging channel for bot joining servers
+	commandErrorChannel: "1517561497520308365", // Logging channel for command errors
+	evalLogsChannel: "1517561558501167255", // Logging channel for eval command
+	dmLoggingChannel: "1517561649840525482", // Logging channel for DMs (when users direct message the bot)
 
 	// Ticket Configuration //
 	ticketName: "ticket-",
