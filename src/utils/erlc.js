@@ -4,40 +4,30 @@ const ErlcConfig = require("../schemas/ErlcConfig");
 const API_BASE = "https://api.erlc.gg/v2/server";
 
 async function getServerData(guildId) {
+    const config = await ErlcConfig.findOne({ guildId });
 
-    const config = await ErlcConfig.findOne({
-        guildId
-    });
-
-    if (!config) {
-        return null;
-    }
+    if (!config) return null;
 
     try {
-
-        const res = await axios.get(
-            API_BASE,
-            {
-                headers: {
-                    "server-key": config.apiKey
-                },
-                params: {
-                    Players: true,
-                    Queue: true,
-                    Staff: true
-                }
+        const res = await axios.get(API_BASE, {
+            headers: {
+                "server-key": config.apiKey
+            },
+            params: {
+                Players: true,
+                Queue: true,
+                Staff: true
             }
-        );
+        });
 
         const data = res.data;
 
-        return {
+        console.log(data); // Check the API response
 
+        return {
             raw: data,
 
-            name:
-                data.Name ||
-                "Unknown Server",
+            name: data.Name || "Unknown Server",
 
             code:
                 data.JoinKey ||
@@ -46,9 +36,13 @@ async function getServerData(guildId) {
 
             ownerId:
                 data.OwnerId ||
+                data.Owner?.UserId ||
+                data.Owner?.Id ||
                 null,
 
             owner:
+                data.Owner?.Username ||
+                data.Owner?.Name ||
                 data.Owner ||
                 "Unknown",
 
@@ -66,16 +60,15 @@ async function getServerData(guildId) {
                 0,
 
             joinUrl:
-                `https://erlc.gg/join/${data.JoinKey}`
-
+                data.JoinKey
+                    ? `https://erlc.gg/join/${data.JoinKey}`
+                    : null
         };
 
     } catch (err) {
-
         console.error(
             "ERLC API Error:",
-            err.response?.data ||
-            err.message
+            err.response?.data || err.message
         );
 
         return null;
