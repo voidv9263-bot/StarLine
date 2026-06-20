@@ -8,20 +8,20 @@ const ErlcConfig = require("../../schemas/ErlcConfig");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("erlc")
-        .setDescription("ERLC commands")
+        .setDescription("Manage ERLC settings")
 
         .addSubcommand(sub =>
             sub
                 .setName("config")
-                .setDescription("Configure ERLC API")
-                .addStringOption(opt =>
-                    opt
+                .setDescription("Configure the ERLC API")
+                .addStringOption(option =>
+                    option
                         .setName("api_key")
-                        .setDescription("Your ERLC API key")
+                        .setDescription("Your ERLC API Key")
                         .setRequired(true)
                 )
-                .addStringOption(opt =>
-                    opt
+                .addStringOption(option =>
+                    option
                         .setName("server_key")
                         .setDescription("Your ERLC Server Key")
                         .setRequired(true)
@@ -34,30 +34,52 @@ module.exports = {
 
     async execute(interaction) {
 
-        if (interaction.options.getSubcommand() === "config") {
+        const subcommand =
+            interaction.options.getSubcommand();
 
-            const apiKey = interaction.options.getString("api_key");
-            const serverKey = interaction.options.getString("server_key");
+        if (subcommand === "config") {
 
-            await ErlcConfig.findOneAndUpdate(
-                {
-                    guildId: interaction.guild.id
-                },
-                {
-                    guildId: interaction.guild.id,
-                    apiKey,
-                    serverKey
-                },
-                {
-                    upsert: true,
-                    new: true
-                }
-            );
+            const apiKey =
+                interaction.options.getString("api_key");
 
-            return interaction.reply({
-                content: "ERLC configuration saved successfully.",
-                ephemeral: true
-            });
+            const serverKey =
+                interaction.options.getString("server_key");
+
+            try {
+
+                await ErlcConfig.findOneAndUpdate(
+                    {
+                        guildId: interaction.guild.id
+                    },
+                    {
+                        guildId: interaction.guild.id,
+                        apiKey: apiKey,
+                        serverKey: serverKey
+                    },
+                    {
+                        upsert: true,
+                        new: true,
+                        setDefaultsOnInsert: true
+                    }
+                );
+
+                return interaction.reply({
+                    content:
+                        "ERLC configuration has been saved successfully.",
+                    ephemeral: true
+                });
+
+            } catch (err) {
+
+                console.error(err);
+
+                return interaction.reply({
+                    content:
+                        "❌ Failed to save the ERLC configuration.",
+                    ephemeral: true
+                });
+
+            }
         }
     }
 };
