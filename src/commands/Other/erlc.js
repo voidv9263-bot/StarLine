@@ -61,6 +61,12 @@ module.exports = {
 
     async execute(interaction) {
 
+        // code here
+
+    }
+
+};
+
         const subcommand =
             interaction.options.getSubcommand();
 
