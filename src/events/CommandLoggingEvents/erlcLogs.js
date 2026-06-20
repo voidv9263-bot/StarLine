@@ -3,7 +3,7 @@ const {
     EmbedBuilder
 } = require("discord.js");
 
-const ErlcConfig = require(".../../schemas/ErlcConfig");
+const ErlcConfig = require("../../schemas/ErlcConfig");
 const { getServerData } = require("../../utils/erlc");
 
 const cache = {
