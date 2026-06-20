@@ -1,5 +1,5 @@
 const axios = require("axios");
-const ErlcConfig = require("../models/ErlcConfig");
+const ErlcConfig = require("../schemas/ErlcConfig");
 
 const API_BASE = "https://api.erlc.gg/v2/server";
 
