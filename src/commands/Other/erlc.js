@@ -3,7 +3,7 @@ const {
     PermissionFlagsBits
 } = require("discord.js");
 
-const ErlcConfig = require("../schemas/ErlcConfig");
+const ErlcConfig = require("../../schemas/ErlcConfig");
 
 module.exports = {
     data: new SlashCommandBuilder()
