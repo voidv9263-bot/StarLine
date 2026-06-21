@@ -8,7 +8,7 @@ module.exports = {
 	eventListeners: 20,
 	botName: "StarLine",
 	dev: "pikebentley",
-	devBy: "| Developed by pikebentley",
+	devBy: "| Developed by StarLine",
 	developers: "961048718612774922",
 	noPerms: `You **do not** have the required permissions to use this command!`,
 	ownerOnlyCommand: `This command is **only** available for the owner of the bot!`,
