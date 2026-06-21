@@ -1,150 +1,324 @@
-const { SlashCommandBuilder, EmbedBuilder, MessageFlags, PermissionsBitField, PermissionFlagsBits } = require('discord.js')
-var timeout = [];
+const {
+    SlashCommandBuilder,
+    EmbedBuilder,
+    MessageFlags,
+    PermissionsBitField,
+    PermissionFlagsBits
+} = require('discord.js');
+
+const timeout = [];
 
 module.exports = {
     usableInDms: false,
     category: "Server Utils",
     permissions: [PermissionFlagsBits.ManageMessages],
+
     data: new SlashCommandBuilder()
-    .setName('create')
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-    .setDescription('Creates threads & embeds for you.')
-    .addSubcommand(command => command.setName('embed').setDescription('Creates an embed with specified values for you.')
-    .addStringOption(option => option.setName('title').setDescription(`Embed's preferred title.`).setRequired(true).setMaxLength(200))
-    .addStringOption(option => option.setName('description').setDescription(`Embed's preferred description.`).setRequired(true).setMaxLength(2048))
-    .addStringOption(option => option.setName("color").setDescription("Specified color will be used for the embed.").setRequired(true)
-        .addChoices(
-            {name: "• Aqua", value: "#00FFFF"},
-            {name: "• Blurple", value: "#7289DA"},
-            {name: "• Fuchsia", value: "#FF00FF"},
-            {name: "• Gold", value: "#FFD700"},
-            {name: "• Green", value: "#008000"},
-            {name: "• Grey", value: "#808080"},
-            {name: "• Greyple", value: "#7D7F9A"},
-            {name: "• Light-grey", value: "#D3D3D3"},
-            {name: "• Luminous-vivid-pink", value: "#FF007F"},
-            {name: "• Navy", value: "#000080"},
-            {name: "• Not-quite-black", value: "#232323"},
-            {name: "• Orange", value: "#FFA500"},
-            {name: "• Purple", value: "#800080"},
-            {name: "• Red", value: "#FF0000"},
-            {name: "• White", value: "#FFFFFF"},
-            {name: "• Yellow", value: "#FFFF00"},
-            {name: "• Blue", value: "#0000FF"}
+        .setName('create')
+        .setDescription('Creates threads & embeds for you.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+
+        .addSubcommand(command =>
+            command
+                .setName('embed')
+                .setDescription('Creates an embed with specified values for you.')
+
+                .addStringOption(option =>
+                    option
+                        .setName('title')
+                        .setDescription("Embed's preferred title.")
+                        .setRequired(true)
+                        .setMaxLength(200)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('description')
+                        .setDescription("Embed description. Use \\n for line breaks.")
+                        .setRequired(true)
+                        .setMaxLength(4096)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName("color")
+                        .setDescription("Specified color will be used for the embed.")
+                        .setRequired(true)
+                        .addChoices(
+                            { name: "• Aqua", value: "#00FFFF" },
+                            { name: "• Blurple", value: "#7289DA" },
+                            { name: "• Fuchsia", value: "#FF00FF" },
+                            { name: "• Gold", value: "#FFD700" },
+                            { name: "• Green", value: "#008000" },
+                            { name: "• Grey", value: "#808080" },
+                            { name: "• Greyple", value: "#7D7F9A" },
+                            { name: "• Light-grey", value: "#D3D3D3" },
+                            { name: "• Luminous-vivid-pink", value: "#FF007F" },
+                            { name: "• Navy", value: "#000080" },
+                            { name: "• Not-quite-black", value: "#232323" },
+                            { name: "• Orange", value: "#FFA500" },
+                            { name: "• Purple", value: "#800080" },
+                            { name: "• Red", value: "#FF0000" },
+                            { name: "• White", value: "#FFFFFF" },
+                            { name: "• Yellow", value: "#FFFF00" },
+                            { name: "• Blue", value: "#0000FF" }
+                        )
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('image')
+                        .setDescription("Embed image URL.")
+                        .setRequired(false)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('thumbnail')
+                        .setDescription("Embed thumbnail URL.")
+                        .setRequired(false)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('field-name')
+                        .setDescription("First field name.")
+                        .setRequired(false)
+                        .setMaxLength(256)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('field-value')
+                        .setDescription("First field value.")
+                        .setRequired(false)
+                        .setMaxLength(1024)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('second-field-name')
+                        .setDescription("Second field name.")
+                        .setRequired(false)
+                        .setMaxLength(256)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('second-field-value')
+                        .setDescription("Second field value.")
+                        .setRequired(false)
+                        .setMaxLength(1024)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('third-field-name')
+                        .setDescription("Third field name.")
+                        .setRequired(false)
+                        .setMaxLength(256)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('third-field-value')
+                        .setDescription("Third field value.")
+                        .setRequired(false)
+                        .setMaxLength(1024)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('forth-field-name')
+                        .setDescription("Fourth field name.")
+                        .setRequired(false)
+                        .setMaxLength(256)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('forth-field-value')
+                        .setDescription("Fourth field value.")
+                        .setRequired(false)
+                        .setMaxLength(1024)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('fifth-field-name')
+                        .setDescription("Fifth field name.")
+                        .setRequired(false)
+                        .setMaxLength(256)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('fifth-field-value')
+                        .setDescription("Fifth field value.")
+                        .setRequired(false)
+                        .setMaxLength(1024)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('sixth-field-name')
+                        .setDescription("Sixth field name.")
+                        .setRequired(false)
+                        .setMaxLength(256)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('sixth-field-value')
+                        .setDescription("Sixth field value.")
+                        .setRequired(false)
+                        .setMaxLength(1024)
+                )
+
+                .addStringOption(option =>
+                    option
+                        .setName('footer')
+                        .setDescription("Embed footer.")
+                        .setRequired(false)
+                )
         )
-    )
-    .addStringOption(option => option.setName('image').setDescription(`Embed's preferred image. Use a URL.`).setRequired(false))
-    .addStringOption(option => option.setName('thumbnail').setDescription(`Embed's preferred thumbnail. Use a URL.`).setRequired(false))
-    .addStringOption(option => option.setName('field-name').setDescription(`Embed's preferred field-name.`).setRequired(false).setMaxLength(256))
-    .addStringOption(option => option.setName('field-value').setDescription(`Embed's preferred field-value.`).setRequired(false).setMaxLength(1024))
-    .addStringOption(option => option.setName('second-field-name').setDescription(`Embed's preferred field-name.`).setRequired(false).setMaxLength(256))
-    .addStringOption(option => option.setName('second-field-value').setDescription(`Embed's preferred field-value.`).setRequired(false).setMaxLength(1024))
-    .addStringOption(option => option.setName('third-field-name').setDescription(`Embed's preferred field-name.`).setRequired(false).setMaxLength(256))
-    .addStringOption(option => option.setName('third-field-value').setDescription(`Embed's preferred field-value.`).setRequired(false).setMaxLength(1024))
-    .addStringOption(option => option.setName('forth-field-name').setDescription(`Embed's preferred field-name.`).setRequired(false).setMaxLength(256))
-    .addStringOption(option => option.setName('forth-field-value').setDescription(`Embed's preferred field-value.`).setRequired(false).setMaxLength(1024))
-    .addStringOption(option => option.setName('fifth-field-name').setDescription(`Embed's preferred field-name.`).setRequired(false).setMaxLength(256))
-    .addStringOption(option => option.setName('fifth-field-value').setDescription(`Embed's preferred field-value.`).setRequired(false).setMaxLength(1024))
-    .addStringOption(option => option.setName('sixth-field-name').setDescription(`Embed's preferred field-name.`).setRequired(false).setMaxLength(256))
-    .addStringOption(option => option.setName('sixth-field-value').setDescription(`Embed's preferred field-value.`).setRequired(false).setMaxLength(1024))
-    .addStringOption(option => option.setName('footer').setDescription(`Embed's preferred footer.`).setRequired(false)))
-    .addSubcommand(command => command.setName('thread').setDescription('Creates a temporary thread for you.')
-    .addStringOption(option => option.setName('name').setDescription("Specified name will be used for your thread.").setRequired(false))),
+
+        .addSubcommand(command =>
+            command
+                .setName('thread')
+                .setDescription('Creates a temporary thread for you.')
+                .addStringOption(option =>
+                    option
+                        .setName('name')
+                        .setDescription("Thread name.")
+                        .setRequired(false)
+                )
+        ),
+
     async execute(interaction) {
 
         const sub = interaction.options.getSubcommand();
 
         switch (sub) {
 
-            case 'embed':
+            case 'embed': {
 
-            const title = interaction.options.getString('title');
-            const description = interaction.options.getString('description');
-            const color = interaction.options.getString('color');
-            const image = interaction.options.getString('image') || 'null';
-            const thumbnail = interaction.options.getString('thumbnail') || 'null';
-            const fieldn = interaction.options.getString('field-name');
-            const fieldv = interaction.options.getString('field-value') || ' ';
-            const footer = interaction.options.getString('footer') || ' ';
-            const fieldn2 = interaction.options.getString('second-field-name');
-            const fieldv2 = interaction.options.getString('second-field-value') || ' ';
-            const fieldn3 = interaction.options.getString('third-field-name');
-            const fieldv3 = interaction.options.getString('third-field-value') || ' ';
-            const fieldn4 = interaction.options.getString('forth-field-name');
-            const fieldv4 = interaction.options.getString('forth-field-value') || ' ';
-            const fieldn5 = interaction.options.getString('fifth-field-name');
-            const fieldv5 = interaction.options.getString('fifth-field-value') || ' ';
-            const fieldv6 = interaction.options.getString('sixth-field-value') || ' ';
-            const fieldn6 = interaction.options.getString('sixth-field-name');
+                const title = interaction.options.getString('title');
 
-            if (image) {
-                if (!image.startsWith('http') && image !== 'null') return await interaction.reply({ content: 'You **cannot** make this your image!', flags: MessageFlags.Ephemeral})
+                const description = interaction.options
+                    .getString('description')
+                    .replace(/\\n/g, '\n');
+
+                const color = interaction.options.getString('color');
+
+                const image = interaction.options.getString('image');
+                const thumbnail = interaction.options.getString('thumbnail');
+
+                const footer = interaction.options.getString('footer') || ' ';
+
+                const embed = new EmbedBuilder()
+                    .setTitle(title)
+                    .setDescription(description)
+                    .setColor(color)
+                    .setFooter({
+                        text: footer,
+                        iconURL: interaction.member.displayAvatarURL({ dynamic: true })
+                    })
+                    .setTimestamp();
+
+                if (image) {
+                    if (!image.startsWith('http')) {
+                        return interaction.reply({
+                            content: 'You cannot use this image URL.',
+                            flags: MessageFlags.Ephemeral
+                        });
+                    }
+
+                    embed.setImage(image);
+                }
+
+                if (thumbnail) {
+                    if (!thumbnail.startsWith('http')) {
+                        return interaction.reply({
+                            content: 'You cannot use this thumbnail URL.',
+                            flags: MessageFlags.Ephemeral
+                        });
+                    }
+
+                    embed.setThumbnail(thumbnail);
+                }
+
+                const fields = [
+                    ['field-name', 'field-value'],
+                    ['second-field-name', 'second-field-value'],
+                    ['third-field-name', 'third-field-value'],
+                    ['forth-field-name', 'forth-field-value'],
+                    ['fifth-field-name', 'fifth-field-value'],
+                    ['sixth-field-name', 'sixth-field-value']
+                ];
+
+                for (const [nameKey, valueKey] of fields) {
+                    const name = interaction.options.getString(nameKey);
+                    const value = interaction.options.getString(valueKey);
+
+                    if (name) {
+                        embed.addFields({
+                            name,
+                            value: value || ' '
+                        });
+                    }
+                }
+
+                await interaction.reply({
+                    content: 'Your embed has been created!',
+                    flags: MessageFlags.Ephemeral
+                });
+
+                await interaction.channel.send({
+                    embeds: [embed]
+                });
+
+                break;
             }
 
-            if (thumbnail) {
-                if (!thumbnail.startsWith('http') && thumbnail !== 'null') return await interaction.reply({ content: 'You **cannot** make this your thumbnail!', flags: MessageFlags.Ephemeral})
-            }
+            case 'thread': {
 
-            const embed = new EmbedBuilder()
-            .setTitle(title)
-            .setDescription(description)
-            .setFooter({ text: `${footer}`, iconURL: interaction.member.displayAvatarURL({ dynamic: true})})
-            .setColor(`${color}`)
-            .setTimestamp()
+                if (
+                    !interaction.member.permissions.has(PermissionsBitField.Flags.Administrator) &&
+                    timeout.includes(interaction.member.id)
+                ) {
+                    return interaction.reply({
+                        content: 'You are on cooldown!',
+                        flags: MessageFlags.Ephemeral
+                    });
+                }
 
-            if (image !== 'null') {
-                embed.setImage(image)
-            }
+                const threadtitle =
+                    interaction.options.getString('name') || 'Unnamed Thread';
 
-            if (thumbnail !== 'null') {
-                embed.setThumbnail(thumbnail)
-            }
+                await interaction.channel.threads.create({
+                    name: threadtitle,
+                    autoArchiveDuration: 60,
+                    reason: 'Created a thread by an Admin.'
+                });
 
-            if (fieldn !== null) {
-                embed.addFields({ name: `${fieldn}`, value: `${fieldv}`})
-            }
-        
-            if (fieldn2 !== null) {
-                embed.addFields({ name: `${fieldn2}`, value: `${fieldv2}`})
-            }
+                await interaction.reply({
+                    content: `Created the "${threadtitle}" thread!`,
+                    flags: MessageFlags.Ephemeral
+                });
 
-            if(fieldn3 !== null) {
-                embed.addFields({ name: `${fieldn3}`, value: `${fieldv3}`})
-            }
+                timeout.push(interaction.user.id);
 
-            if (fieldn4 !== null) {
-                embed.addFields({ name: `${fieldn4}`, value: `${fieldv4}`})
-            }
-        
-            if (fieldn5 !== null) {
-                embed.addFields({ name: `${fieldn5}`, value: `${fieldv5}`})
-            }
-        
-            if (fieldn6 !== null) {
-                embed.addFields({ name: `${fieldn6}`, value: `${fieldv6}`})
-            }
-        
-            await interaction.reply({ content: `Your **embed** has been created!`, flags: MessageFlags.Ephemeral})
-            await interaction.channel.send({ embeds: [embed]})
+                setTimeout(() => {
+                    const index = timeout.indexOf(interaction.user.id);
 
-            break;
-            case 'thread':
+                    if (index > -1) {
+                        timeout.splice(index, 1);
+                    }
+                }, 60000);
 
-            if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator) && timeout.includes(interaction.member.id)) return await interaction.reply({ content: 'You are on cooldown! You **cannot** execute /create-thread.', flags: MessageFlags.Ephemeral})
-        
-            const threadtitle = interaction.options.getString('name') || 'Unnamed Thread';
-            await interaction.channel.threads.create({
-                name: `${threadtitle}`,
-                autoArchiveDuration: 60,
-                reason: 'Created a thread by an Admin.'
-            });
-        
-            await interaction.reply({ content: `Created the "**${threadtitle}**" thread!`, flags: MessageFlags.Ephemeral});
-
-            timeout.push(interaction.user.id);
-            setTimeout(() => {
-                timeout.shift();
-            }, 60000)
-        }   
+                break;
+            }
+        }
     }
-}
+};
